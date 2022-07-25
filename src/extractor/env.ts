@@ -62,8 +62,8 @@ function mergeChain(acc: Mergeable, chain: Chain): Mergeable {
  * ```
  */
 export class EnvExtractor<C> implements Extractor<C> {
-  prefix: string;
-  separator: string;
+  readonly prefix: string;
+  readonly separator: string;
 
   /**
    * Creates a new EnvExtractor

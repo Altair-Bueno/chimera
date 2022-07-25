@@ -7,9 +7,9 @@ export type Serializer<C> = (data: string) => C;
  * A base extractor for deserializing text files
  */
 export class FileExtractor<C> implements Extractor<C> {
-  filename: string;
-  textFileLoader: TextFileLoader;
-  serializer: Serializer<C>;
+  readonly filename: string;
+  readonly textFileLoader: TextFileLoader;
+  readonly serializer: Serializer<C>;
 
   /**
    * Create a file extractor
