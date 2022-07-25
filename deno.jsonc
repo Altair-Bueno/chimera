@@ -2,7 +2,7 @@
     "importMap": "import_map.json",
     "fmt": {
         "files": {
-            "include": ["src/", "test/", "mod.ts"]
+            "include": ["src/", "test/", "examples/", "mod.ts"]
         }
     }
 }

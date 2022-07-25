@@ -46,12 +46,12 @@ function mergeChain(acc: Mergeable, chain: Chain): Mergeable {
 
 /**
  * An extractor for reading environment variables
- * 
+ *
  * - Keys will be interpreted as **lowercase** strings, meaning that loading uppercase characters is not supported
  * - Keys that do not start with the provided prefix will be ignored
  * - Separator instructs the extractor on how to nest configuration objects (see below for an example)
  * - Values will be serialized as JSON if possible. Otherwise they will be loaded as plain strings
- * 
+ *
  * ```sh
  * # prefix: PREFIX_
  * # separator: _

@@ -12,13 +12,13 @@ import {
   YamlExtractor,
 } from "./extractor/index.ts";
 import { merge } from "lodash/lodash.js";
-import { join, extname } from "path/mod.ts";
+import { extname, join } from "path/mod.ts";
 
 /**
  * Creates an Extractor using the path extension, null otherwise
- * @param path 
+ * @param path
  * @returns Extractor object if inferred, null otherwise
- */ 
+ */
 function toExtractor<C>(path: string): Extractor<C> | null {
   const extension = extname(path).toLowerCase();
 
@@ -61,7 +61,7 @@ export async function getConfig<C>({
 export interface AutoParams {
   name: string;
   configDir?: string;
-  errorCallback?: (e?:Error) => void,
+  errorCallback?: (e?: Error) => void;
 }
 
 /**
@@ -70,7 +70,7 @@ export interface AutoParams {
  * - Loads configuration files from `configDir`
  *  - Only files whose name matches the name parameter will be loaded
  *  - Analyzes the file extension to decide which extractor should be used
- * - Loads environment variables 
+ * - Loads environment variables
  *  - The prefix is `${name}_`
  *  - `_` is used as separator
  *
@@ -95,7 +95,7 @@ export async function auto<C>(autoParams: AutoParams): Promise<C> {
     // Remove null values (extractors couldn't be generated)
     .filter(Boolean) as Extractor<C>[];
   extractors.push(new EnvExtractor(`${name}_`));
-  
-  const errorCallback = autoParams.errorCallback
+
+  const errorCallback = autoParams.errorCallback;
   return await getConfig<C>({ extractors, errorCallback });
 }
