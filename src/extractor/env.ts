@@ -2,8 +2,8 @@ import { Extractor } from "./index.ts";
 
 type Base = string;
 type Chain = Base | [string, Chain];
-// Mergeable = Record<string, Mergeable> | unknown; if typescript where any good...
-type Mergeable = unknown;
+// Mergeable = Record<string, Mergeable> | unknown; if typescript where any good with recursion...
+type Mergeable = Record<string, unknown> | unknown;
 
 // separator: '_'
 // FOO_BAZ_TIN_TO => [FOO, [BAZ, [TIN, TO]]]
@@ -16,31 +16,28 @@ function breakdown([k, v]: [string, string], separator: string): Chain {
 }
 
 function mergeChain(acc: Mergeable, chain: Chain): Mergeable {
-  const isRecursive = Array.isArray(chain);
-
-  if (isRecursive) {
-    // Recursive chain
-    const [key, value] = chain;
-
-    if (typeof acc == "object" && acc) {
-      // The accumulator is an object that can be indexed using strings (Record)
-      const indexable = acc as Record<string, Mergeable>;
-      indexable[key] = mergeChain(indexable[key], value);
-      return indexable;
-    } else if (acc) {
-      // The accumulator is an object that cannot be indexed
-      throw new Error("Unexpected token");
-    } else {
-      // The accumulator is not initiated
-      return Object.fromEntries([[key, mergeChain(null, value)]]);
-    }
-  } else {
-    // Base case
+  const isBase = !Array.isArray(chain);
+  // Base case
+  if (isBase) {
     try {
       return JSON.parse(chain);
     } catch {
       return chain;
     }
+  }
+
+  // Recursive traversal
+  const [key, value] = chain;
+
+  if (acc && typeof acc == "object") {
+    // The accumulator is an object that can be indexed using strings (Record)
+    const indexable = acc as Record<string, Mergeable>;
+    indexable[key] = mergeChain(indexable[key], value);
+    
+    return indexable;
+  } else {
+    // The accumulator is not initiated
+    return Object.fromEntries([[key, mergeChain(null, value)]]);
   }
 }
 
