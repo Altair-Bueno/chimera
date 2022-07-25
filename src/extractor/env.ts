@@ -2,8 +2,11 @@ import { Extractor } from "./index.ts";
 
 type Base = string;
 type Chain = Base | [string, Chain];
+// Mergeable = Record<string, Mergeable> | unknown; if typescript where any good...
 type Mergeable = unknown;
 
+// separator: '_'
+// FOO_BAZ_TIN_TO => [FOO, [BAZ, [TIN, TO]]]
 function breakdown([k, v]: [string, string], separator: string): Chain {
   const result = k
     .split(separator)
@@ -41,15 +44,41 @@ function mergeChain(acc: Mergeable, chain: Chain): Mergeable {
   }
 }
 
+/**
+ * An extractor for reading environment variables
+ * 
+ * - Keys will be interpreted as **lowercase** strings, meaning that loading uppercase characters is not supported
+ * - Keys that do not start with the provided prefix will be ignored
+ * - Separator instructs the extractor on how to nest configuration objects (see below for an example)
+ * - Values will be serialized as JSON if possible. Otherwise they will be loaded as plain strings
+ * 
+ * ```sh
+ * # prefix: PREFIX_
+ * # separator: _
+ * PREFIX_FOO=10 # { foo: 10 }
+ * PREFIX_BAZ_DEEP_FOO='{"hello": "world"}' # { baz: { deep: { foo: { hello: "world" } } } }
+ * FOO=10 # -
+ * prefix_biz=42 # { biz: 42 }
+ * ```
+ */
 export class EnvExtractor<C> implements Extractor<C> {
   prefix: string;
   separator: string;
 
+  /**
+   * Creates a new EnvExtractor
+   * @param prefix Extract only variables whose keys start with the given prefix
+   * @param separator Separator used to nest objects
+   */
   constructor(prefix: string, separator = "_") {
     this.prefix = prefix.toLowerCase();
     this.separator = separator.toLowerCase();
   }
 
+  /**
+   * Creates an object using environment variables
+   * @returns extracted object
+   */
   // deno-lint-ignore require-await
   async extract() {
     const rawEnv = Deno.env.toObject();

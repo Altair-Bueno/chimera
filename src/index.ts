@@ -14,6 +14,11 @@ import {
 import { merge } from "lodash/lodash.js";
 import { join, extname } from "path/mod.ts";
 
+/**
+ * Creates an Extractor using the path extension, null otherwise
+ * @param path 
+ * @returns Extractor object if inferred, null otherwise
+ */ 
 function toExtractor<C>(path: string): Extractor<C> | null {
   const extension = extname(path).toLowerCase();
 
@@ -26,7 +31,10 @@ function toExtractor<C>(path: string): Extractor<C> | null {
   }
 }
 
-interface GetConfigParams<C> {
+/**
+ * Parameters for `getConfig`
+ */
+export interface GetConfigParams<C> {
   extractors: Extractor<C>[];
   errorCallback?: (e?: Error) => void;
 }
@@ -47,12 +55,29 @@ export async function getConfig<C>({
   return merge(...resolved);
 }
 
-interface AutoParams {
+/**
+ * Parameters for `auto`
+ */
+export interface AutoParams {
   name: string;
   configDir?: string;
+  errorCallback?: (e?:Error) => void,
 }
 
-export async function auto<C>(autoParams: AutoParams):Promise<C> {
+/**
+ * Creates a config object with sensible defaults
+ *
+ * - Loads configuration files from `configDir`
+ *  - Only files whose name matches the name parameter will be loaded
+ *  - Analyzes the file extension to decide which extractor should be used
+ * - Loads environment variables 
+ *  - The prefix is `${name}_`
+ *  - `_` is used as separator
+ *
+ * @param autoParams
+ * @returns A configuration object
+ */
+export async function auto<C>(autoParams: AutoParams): Promise<C> {
   const name = autoParams.name.toLowerCase();
   const dirname = autoParams.configDir ? autoParams.configDir : Deno.cwd();
 
@@ -70,5 +95,7 @@ export async function auto<C>(autoParams: AutoParams):Promise<C> {
     // Remove null values (extractors couldn't be generated)
     .filter(Boolean) as Extractor<C>[];
   extractors.push(new EnvExtractor(`${name}_`));
-  return await getConfig<C>({ extractors });
+  
+  const errorCallback = autoParams.errorCallback
+  return await getConfig<C>({ extractors, errorCallback });
 }

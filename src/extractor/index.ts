@@ -1,4 +1,7 @@
 export interface Extractor<C> {
+  /**
+   * Extracts a configuration object
+   */
   extract: () => Promise<C>;
 }
 

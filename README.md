@@ -1,6 +1,6 @@
 # Chimera
 
-Configuration made easy
+Chimera is a configuration framework so unreal that feels fictional
 
 ## Usage
 
