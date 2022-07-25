@@ -33,7 +33,7 @@ function mergeChain(acc: Mergeable, chain: Chain): Mergeable {
     // The accumulator is an object that can be indexed using strings (Record)
     const indexable = acc as Record<string, Mergeable>;
     indexable[key] = mergeChain(indexable[key], value);
-    
+
     return indexable;
   } else {
     // The accumulator is not initiated

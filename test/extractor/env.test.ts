@@ -64,3 +64,13 @@ Deno.test("Loads valid JSON as objects", async () => {
 
   assertEquals(obtainted, expected);
 });
+
+Deno.test("Empty environment creates empty object", async () => {
+  const prefix = "test_empty";
+  const expected = {};
+  const extractor = new EnvExtractor<typeof expected>(prefix);
+
+  const obtained = await extractor.extract();
+
+  assertEquals(obtained, expected);
+});
