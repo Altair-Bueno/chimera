@@ -15,9 +15,10 @@ import { merge } from "lodash/lodash.js";
 import { extname, join } from "path/mod.ts";
 
 /**
- * Creates an Extractor using the path extension, null otherwise
+ * Creates an extractor based on the path extension
+ * 
  * @param path
- * @returns Extractor object if inferred, null otherwise
+ * @returns The extractor object, null if no extractor could be infered
  */
 function toExtractor<C>(path: string): Extractor<C> | null {
   const extension = extname(path).toLowerCase();
@@ -35,10 +36,25 @@ function toExtractor<C>(path: string): Extractor<C> | null {
  * Parameters for `getConfig`
  */
 export interface GetConfigParams<C> {
+  /**
+   * List of extractors to use. The configurations are merged in order, meaning
+   * that the first extractor will be used as base configuration, and the last
+   * extractor will take preference over the rest
+   */
   extractors: Extractor<C>[];
+  /**
+   * Callback to execute on extractor error. By default all exceptions are
+   * ignored
+   */ 
   errorCallback?: (e?: Error) => void;
 }
 
+/**
+ * Creates a config object using the provided list of extractors
+ * 
+ * @param getConfigParams
+ * @returns A configuration object
+ */
 export async function getConfig<C>({
   extractors,
   errorCallback,
@@ -59,8 +75,18 @@ export async function getConfig<C>({
  * Parameters for `auto`
  */
 export interface AutoParams {
+  /**
+   * Name used as prefix for environment variables and configuration files
+   */
   name: string;
+  /**
+   * Directory where configuration files are located
+   */
   configDir?: string;
+  /**
+   * Callback to execute on extractor error. By default all exceptions are 
+   * ignored
+   */
   errorCallback?: (e?: Error) => void;
 }
 
@@ -68,11 +94,11 @@ export interface AutoParams {
  * Creates a config object with sensible defaults
  *
  * - Loads configuration files from `configDir`
- *  - Only files whose name matches the name parameter will be loaded
- *  - Analyzes the file extension to decide which extractor should be used
+ *   - Only files whose name matches the name parameter will be loaded
+ *   - Analyzes the file extension to decide which extractor should be used
  * - Loads environment variables
- *  - The prefix is `${name}_`
- *  - `_` is used as separator
+ *   - The prefix is `${name}_`
+ *   - `_` is used as separator
  *
  * @param autoParams
  * @returns A configuration object
