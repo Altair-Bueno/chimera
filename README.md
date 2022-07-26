@@ -18,4 +18,5 @@ const config: Config = await auto({ name: "example" });
 console.log(config);
 ```
 
-See the [documentation](https://deno.land/x/chimera) for detailed usage
+See the [documentation](https://doc.deno.land/https://deno.land/x/chimera) 
+for detailed usage
