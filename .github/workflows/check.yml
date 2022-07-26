@@ -18,7 +18,7 @@ jobs:
             ~/.cache/deno
           key: ${{ runner.os }}-deno-${{ hashFiles('import_map.json') }}
       - name: Run tests
-        run: make test
+        run: deno task test
   denocheck:
     runs-on: ubuntu-latest
     steps:
@@ -27,4 +27,4 @@ jobs:
         with:
           deno-version: "vx.x.x"
       - name: Run format and lint checks
-        run: make check
+        run: deno task check

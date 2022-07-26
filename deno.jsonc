@@ -3,5 +3,11 @@
     "files": {
       "exclude": ["dist/"]
     }
+  },
+  "tasks": {
+    "fmt": "deno fmt",
+    "test": "deno test --allow-read=. --allow-env",
+    "lint": "deno lint",
+    "check": "deno task fmt --check && deno task lint"
   }
 }
