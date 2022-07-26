@@ -1,5 +1,5 @@
-import { assertEquals } from "test/asserts.ts";
-import { EnvExtractor } from "/mod.ts";
+import { asserts } from "../../deps.ts";
+import { EnvExtractor } from "../../mod.ts";
 
 Deno.test(
   "Ignores environment variables that do not contain a given prefix",
@@ -13,7 +13,7 @@ Deno.test(
 
     const obtainted = await extractor.extract();
 
-    assertEquals(obtainted, expected);
+    asserts.assertEquals(obtainted, expected);
   },
 );
 
@@ -25,7 +25,7 @@ Deno.test("Loads nested properties", async () => {
 
   const obtainted = await extractor.extract();
 
-  assertEquals(obtainted, expected);
+  asserts.assertEquals(obtainted, expected);
 });
 
 Deno.test("Loads multiple properties from nested objects", async () => {
@@ -49,7 +49,7 @@ Deno.test("Loads multiple properties from nested objects", async () => {
 
   const obtainted = await extractor.extract();
 
-  assertEquals(obtainted, expected);
+  asserts.assertEquals(obtainted, expected);
 });
 
 Deno.test("Loads valid JSON as objects", async () => {
@@ -62,7 +62,7 @@ Deno.test("Loads valid JSON as objects", async () => {
 
   const obtainted = await extractor.extract();
 
-  assertEquals(obtainted, expected);
+  asserts.assertEquals(obtainted, expected);
 });
 
 Deno.test("Empty environment creates empty object", async () => {
@@ -72,5 +72,5 @@ Deno.test("Empty environment creates empty object", async () => {
 
   const obtained = await extractor.extract();
 
-  assertEquals(obtained, expected);
+  asserts.assertEquals(obtained, expected);
 });

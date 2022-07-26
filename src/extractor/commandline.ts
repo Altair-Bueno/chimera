@@ -1,5 +1,5 @@
 import { Extractor } from "./index.ts";
-import { parse } from "flags/mod.ts";
+import { flags } from "../../deps.ts";
 
 /**
  * Extracts configuration options from command line arguments
@@ -32,7 +32,7 @@ export class CommandLineExtractor<C> implements Extractor<C> {
    */
   // deno-lint-ignore require-await
   async extract() {
-    const parsed = parse(this.args);
+    const parsed = flags.parse(this.args);
     // Make _ (string | numnber []) | undefined so it can be removed
     const partial = parsed as Partial<typeof parsed>;
     delete partial["_"];

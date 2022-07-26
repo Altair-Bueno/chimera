@@ -5,7 +5,7 @@
  * directory to run this example
  */
 
-import { getConfig, JsonExtractor, YamlExtractor } from "/mod.ts";
+import { getConfig, JsonExtractor, YamlExtractor } from "../mod.ts";
 
 interface Config {
   hostname: string;

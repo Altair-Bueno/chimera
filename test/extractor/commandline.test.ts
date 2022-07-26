@@ -1,5 +1,5 @@
-import { assertEquals } from "test/asserts.ts";
-import { CommandLineExtractor } from "/mod.ts";
+import { asserts } from "../../deps.ts";
+import { CommandLineExtractor } from "../../mod.ts";
 
 Deno.test("Empty argument list creates an empty object", async () => {
   const extractor = new CommandLineExtractor([]);
@@ -7,5 +7,5 @@ Deno.test("Empty argument list creates an empty object", async () => {
   const expected = {};
   const obtained = await extractor.extract();
 
-  assertEquals(obtained, expected);
+  asserts.assertEquals(obtained, expected);
 });

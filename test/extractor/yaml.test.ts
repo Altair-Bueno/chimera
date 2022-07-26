@@ -1,5 +1,5 @@
-import { assertEquals } from "test/asserts.ts";
-import { YamlExtractor } from "/mod.ts";
+import { asserts } from "../../deps.ts";
+import { YamlExtractor } from "../../mod.ts";
 
 const RESOURCES_FOLDER = "test/resources";
 
@@ -11,5 +11,5 @@ Deno.test("Load valid Yaml object from file", async () => {
   const extractor = new YamlExtractor<typeof expected>(filename);
   const obtained = await extractor.extract();
 
-  assertEquals(obtained, expected);
+  asserts.assertEquals(obtained, expected);
 });

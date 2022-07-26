@@ -1,5 +1,5 @@
-import { assertEquals } from "test/asserts.ts";
-import { JsonExtractor } from "/mod.ts";
+import { asserts } from "../../deps.ts";
+import { JsonExtractor } from "../../mod.ts";
 
 const RESOURCES_FOLDER = "test/resources";
 
@@ -11,5 +11,5 @@ Deno.test("Load valid JSON object from file", async () => {
   const jsonExtractor = new JsonExtractor<typeof expected>(filename);
   const obtained = await jsonExtractor.extract();
 
-  assertEquals(obtained, expected);
+  asserts.assertEquals(obtained, expected);
 });

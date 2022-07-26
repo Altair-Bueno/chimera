@@ -6,7 +6,7 @@
  * settings!
  */
 
-import { auto } from "/mod.ts";
+import { auto } from "../mod.ts";
 
 // The Config interfaces defines the expected configuration object
 interface Config {

@@ -1,4 +1,4 @@
-import { parse } from "encoding/yaml.ts";
+import { yaml } from "../../deps.ts";
 import { FileExtractor } from "./file.ts";
 
 /**
@@ -10,7 +10,7 @@ export class YamlExtractor<C> extends FileExtractor<C> {
    * @param filename Path that references the file
    */
   constructor(filename: string) {
-    super(filename, Deno.readTextFile, (x) => parse(x) as C);
+    super(filename, Deno.readTextFile, (x) => yaml.parse(x) as C);
   }
 }
 

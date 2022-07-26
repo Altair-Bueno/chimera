@@ -1,11 +1,11 @@
-import { assertEquals } from "test/asserts.ts";
-import { DefaultExtractor, getConfig } from "/mod.ts";
+import { asserts } from "../deps.ts";
+import { DefaultExtractor, getConfig } from "../mod.ts";
 
 Deno.test("Empty extractor list returns empty object", async () => {
   const expected = {};
   const obtained = await getConfig({ extractors: [] });
 
-  assertEquals(obtained, expected);
+  asserts.assertEquals(obtained, expected);
 });
 
 Deno.test("Last extractor takes preference", async () => {
@@ -15,7 +15,7 @@ Deno.test("Last extractor takes preference", async () => {
   const expected = { hello: "people" };
   const obtained = await getConfig({ extractors: [first, second] });
 
-  assertEquals(obtained, expected);
+  asserts.assertEquals(obtained, expected);
 });
 
 Deno.test("Error callback executes on each extractor failure", async () => {
@@ -32,5 +32,5 @@ Deno.test("Error callback executes on each extractor failure", async () => {
     errorCallback: () => count++,
   });
 
-  assertEquals(count, 2);
+  asserts.assertEquals(count, 2);
 });

@@ -1,5 +1,5 @@
-import { DefaultExtractor } from "/mod.ts";
-import { assertEquals } from "test/asserts.ts";
+import { DefaultExtractor } from "../../mod.ts";
+import { asserts } from "../../deps.ts";
 
 Deno.test("Extract returns the same object", async () => {
   const expected = { hello: "world", this: 10 };
@@ -7,5 +7,5 @@ Deno.test("Extract returns the same object", async () => {
 
   const obtained = await extractor.extract();
 
-  assertEquals(obtained, expected);
+  asserts.assertEquals(obtained, expected);
 });

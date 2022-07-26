@@ -5,7 +5,7 @@ import {
   JsonExtractor,
   YamlExtractor,
 } from "./extractor/index.ts";
-import { extname, join } from "path/mod.ts";
+import { path } from "../deps.ts";
 import { getConfig } from "./getconfig.ts";
 
 /**
@@ -14,13 +14,13 @@ import { getConfig } from "./getconfig.ts";
  * @param path
  * @returns The extractor object, null if no extractor could be inferred
  */
-function toExtractor<C>(path: string): Extractor<C> | null {
-  const extension = extname(path).toLowerCase();
+function toExtractor<C>(filePath: string): Extractor<C> | null {
+  const extension = path.extname(filePath).toLowerCase();
 
   if (extension == ".yaml" || extension === ".yml") {
-    return new YamlExtractor(path);
+    return new YamlExtractor(filePath);
   } else if (extension === ".json") {
-    return new JsonExtractor(path);
+    return new JsonExtractor(filePath);
   } else {
     return null;
   }
@@ -77,7 +77,7 @@ export async function auto<C>(autoParams: AutoParams<C>): Promise<C> {
     // Remove all files whose name isn't expected
     .filter((file) => file.name.toLowerCase().match(regex))
     // Join paths
-    .map((file) => join(dirname, file.name))
+    .map((file) => path.join(dirname, file.name))
     // Create extractors
     .map((path) => toExtractor<C>(path))
     // Remove null values (extractors couldn't be generated)
