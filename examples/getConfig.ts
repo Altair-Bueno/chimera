@@ -19,12 +19,14 @@ interface Config {
 // runs first and is merged with the rest in order. In this case, `config.json`
 // will take preference over `config.yaml`
 const extractors = [
-  new YamlExtractor<Config>("config.yaml"),
-  new JsonExtractor<Config>("config.json"),
+  new YamlExtractor<Config>("examples/config.yaml"),
+  new JsonExtractor<Config>("examples/config.json"),
 ];
 
 // This callback will execute for each exception thrown by the extractors
-const errorCallback = console.error;
+
+const errorCallback = (e: Error) =>
+  console.error(`Error loading file: ${e.message}`);
 const config = await getConfig<Config>({ extractors, errorCallback });
 
 console.log(config);
