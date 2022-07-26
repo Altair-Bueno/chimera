@@ -1,4 +1,4 @@
-import type { Extractor } from "./extractor/index.ts";
+import { DefaultExtractor, Extractor } from "./extractor/index.ts";
 import {
   EnvExtractor,
   JsonExtractor,
@@ -28,7 +28,7 @@ function toExtractor<C>(path: string): Extractor<C> | null {
 /**
  * Parameters for `auto`
  */
-export interface AutoParams {
+export interface AutoParams<C> {
   /**
    * Name used as prefix for environment variables and configuration files
    */
@@ -42,6 +42,10 @@ export interface AutoParams {
    * ignored
    */
   errorCallback?: (e: Error) => void;
+  /**
+   * Base configuration used as default values
+   */
+  baseConfig?: C;
 }
 
 /**
@@ -58,7 +62,7 @@ export interface AutoParams {
  * @param autoParams
  * @returns A configuration object
  */
-export async function auto<C>(autoParams: AutoParams): Promise<C> {
+export async function auto<C>(autoParams: AutoParams<C>): Promise<C> {
   const name = autoParams.name.toLowerCase();
   const dirname = autoParams.configDir ? autoParams.configDir : Deno.cwd();
 
@@ -76,6 +80,9 @@ export async function auto<C>(autoParams: AutoParams): Promise<C> {
     // Remove null values (extractors couldn't be generated)
     .filter(Boolean) as Extractor<C>[];
   extractors.push(new EnvExtractor(`${name}_`));
+
+  if (autoParams.baseConfig)
+    extractors.unshift(new DefaultExtractor(autoParams.baseConfig));
 
   const errorCallback = autoParams.errorCallback;
   return await getConfig<C>({ extractors, errorCallback });

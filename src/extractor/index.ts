@@ -13,3 +13,4 @@ export * from "./json.ts";
 export * from "./yaml.ts";
 export * from "./file.ts";
 export * from "./env.ts";
+export * from "./default.ts";
