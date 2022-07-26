@@ -1,5 +1,7 @@
 {
   "imports": {
+    "/": "./",
+    "./": "./",
     "test/": "https://deno.land/std@0.149.0/testing/",
     "encoding/": "https://deno.land/std@0.149.0/encoding/",
     "lodash/": "https://raw.githubusercontent.com/lodash/lodash/4.17.21-es/",

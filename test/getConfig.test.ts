@@ -1,5 +1,5 @@
 import { assertEquals } from "test/asserts.ts";
-import { getConfig, DefaultExtractor } from "../mod.ts";
+import { getConfig, DefaultExtractor } from "/mod.ts";
 
 Deno.test("Empty extractor list returns empty object", async () => {
   const expected = {};

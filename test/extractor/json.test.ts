@@ -1,5 +1,5 @@
 import { assertEquals } from "test/asserts.ts";
-import { JsonExtractor } from "../../mod.ts";
+import { JsonExtractor } from "/mod.ts";
 
 const RESOURCES_FOLDER = "test/resources";
 

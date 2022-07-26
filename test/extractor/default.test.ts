@@ -1,4 +1,4 @@
-import { DefaultExtractor } from "../../mod.ts";
+import { DefaultExtractor } from "/mod.ts";
 import { assertEquals } from "test/asserts.ts";
 
 Deno.test("Extract returns the same object", async () => {

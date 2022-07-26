@@ -1,5 +1,5 @@
 import { assertEquals } from "test/asserts.ts";
-import { YamlExtractor } from "../../mod.ts";
+import { YamlExtractor } from "/mod.ts";
 
 const RESOURCES_FOLDER = "test/resources";
 

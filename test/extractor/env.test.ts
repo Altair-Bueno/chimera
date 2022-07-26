@@ -1,5 +1,5 @@
 import { assertEquals } from "test/asserts.ts";
-import { EnvExtractor } from "../../mod.ts";
+import { EnvExtractor } from "/mod.ts";
 
 Deno.test(
   "Ignores environment variables that do not contain a given prefix",
