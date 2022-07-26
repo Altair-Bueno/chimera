@@ -16,7 +16,7 @@ jobs:
           path: |
             ~/.deno
             ~/.cache/deno
-          key: ${{ runner.os }}-deno-${{ hashFiles('import_map.json') }}
+          key: ${{ runner.os }}-deno-${{ hashFiles('**/deps.ts') }}
       - name: Run tests
         run: deno task test
   denocheck:
