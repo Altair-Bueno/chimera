@@ -1,5 +1,10 @@
 import { Extractor } from "./index.ts";
 
+/**
+ * A function capable of loading the raw environment into an indexable record
+ */
+export type EnvironmentLoader = () => Record<string, string>;
+
 type Base = string;
 type Chain = Base | [string, Chain];
 // Mergeable = Record<string, Mergeable> | unknown; if typescript where any good with recursion...
@@ -64,15 +69,22 @@ function mergeChain(acc: Mergeable, chain: Chain): Mergeable {
 export class EnvExtractor<C> implements Extractor<C> {
   readonly prefix: string;
   readonly separator: string;
+  readonly environmentLoader: EnvironmentLoader;
 
   /**
    * Creates a new EnvExtractor
    * @param prefix Extract only variables whose keys start with the given prefix
    * @param separator Separator used to nest objects
+   * @param environmentLoader Function that loads the raw environment into an indexable record
    */
-  constructor(prefix: string, separator: string = "_") {
+  constructor(
+    prefix: string,
+    separator: string = "_",
+    environmentLoader: EnvironmentLoader = Deno.env.toObject,
+  ) {
     this.prefix = prefix.toLowerCase();
     this.separator = separator.toLowerCase();
+    this.environmentLoader = environmentLoader;
   }
 
   /**
@@ -81,7 +93,7 @@ export class EnvExtractor<C> implements Extractor<C> {
    */
   // deno-lint-ignore require-await
   async extract() {
-    const rawEnv = Deno.env.toObject();
+    const rawEnv = this.environmentLoader();
     const result = Object.entries(rawEnv)
       // Lowercase all environment variables
       .map(([k, v]) => [k.toLowerCase(), v])
