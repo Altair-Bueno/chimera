@@ -1,3 +1,4 @@
+// Extractors
 export {
   EnvExtractor,
   FileExtractor,
@@ -6,5 +7,11 @@ export {
   DefaultExtractor,
 } from "./extractor/index.ts";
 
-export { getConfig } from "./getconfig.ts";
+// Magic functions
 export { auto } from "./auto.ts";
+export { getConfig } from "./getconfig.ts";
+
+// Types and interfaces
+export type { Extractor } from "./extractor/index.ts";
+export type { GetConfigParams } from "./getconfig.ts";
+export type { AutoParams } from "./auto.ts";
