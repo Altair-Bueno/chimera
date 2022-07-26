@@ -1,8 +1,8 @@
 {
-    "importMap": "import_map.json",
-    "fmt": {
-        "files": {
-            "include": ["src/", "test/", "examples/", "mod.ts"]
-        }
+  "importMap": "import_map.json",
+  "fmt": {
+    "files": {
+      "exclude": ["dist/"]
     }
+  }
 }
