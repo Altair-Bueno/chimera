@@ -1,16 +1,21 @@
 # Chimera
 
-Chimera is a configuration framework so unreal that feels fictional
-
-## Usage
+A fantastic configuration library for Deno
 
 ```ts
-import { auto } from 'chimera'
+import { auto } from "chimera";
 
 interface Config {
-  username: string
+  username: string;
+  maxconn: number;
+  nested: {
+    foo: string;
+  };
+  // ...
 }
 
-const config = await auto({name: "example"})
-console.log(config)
+const config: Config = await auto({ name: "example" });
+console.log(config);
 ```
+
+See the [documentation](example.org) for detailed usage
