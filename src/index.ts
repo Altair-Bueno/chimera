@@ -46,7 +46,7 @@ export interface GetConfigParams<C> {
    * Callback to execute on extractor error. By default all exceptions are
    * ignored
    */
-  errorCallback?: (e?: Error) => void;
+  errorCallback?: (e: Error) => void;
 }
 
 /**
@@ -87,7 +87,7 @@ export interface AutoParams {
    * Callback to execute on extractor error. By default all exceptions are
    * ignored
    */
-  errorCallback?: (e?: Error) => void;
+  errorCallback?: (e: Error) => void;
 }
 
 /**
