@@ -1,0 +1,21 @@
+name: Test chimera
+on: push
+jobs:
+  denotest:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        deno-version: ["1.23.X"]
+    steps:
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ matrix.deno-version }}
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.deno
+            ~/.cache/deno
+          key: ${{ runner.os }}-deno-${{ hashFiles('import_map.json') }}
+      - name: Run tests
+        run: make test
