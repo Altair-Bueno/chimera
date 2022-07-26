@@ -23,4 +23,4 @@ export class DefaultExtractor<C> implements Extractor<C> {
   }
 }
 
-export default DefaultExtractor
+export default DefaultExtractor;

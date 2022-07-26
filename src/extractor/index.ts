@@ -14,3 +14,4 @@ export * from "./yaml.ts";
 export * from "./file.ts";
 export * from "./env.ts";
 export * from "./default.ts";
+export * from "./commandline.ts";

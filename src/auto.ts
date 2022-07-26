@@ -1,5 +1,6 @@
 import { DefaultExtractor, Extractor } from "./extractor/index.ts";
 import {
+  CommandLineExtractor,
   EnvExtractor,
   JsonExtractor,
   YamlExtractor,
@@ -51,13 +52,15 @@ export interface AutoParams<C> {
 /**
  * Creates a config object with sensible defaults
  *
- * - Loads configuration files from `configDir`
+ * 1. Uses `baseConfig` as default values
+ * 2. Loads configuration files from `configDir`
  *   - Only files whose name matches the name parameter will be loaded
  *   - Analyzes the file extension to decide which extractor should be used
  *   - Yaml and Json are supported
- * - Loads environment variables
+ * 3. Loads environment variables
  *   - The prefix is `${name}_`
  *   - `_` is used as separator
+ * 4. Loads command line arguments
  *
  * @param autoParams
  * @returns A configuration object
@@ -81,8 +84,11 @@ export async function auto<C>(autoParams: AutoParams<C>): Promise<C> {
     .filter(Boolean) as Extractor<C>[];
   extractors.push(new EnvExtractor(`${name}_`));
 
-  if (autoParams.baseConfig)
+  if (autoParams.baseConfig) {
     extractors.unshift(new DefaultExtractor(autoParams.baseConfig));
+  }
+
+  extractors.push(new CommandLineExtractor());
 
   const errorCallback = autoParams.errorCallback;
   return await getConfig<C>({ extractors, errorCallback });
