@@ -42,12 +42,15 @@ function mergeChain(acc: Mergeable, chain: Chain): Mergeable {
 }
 
 /**
- * An extractor for reading environment variables
+ * An extractor for environment variables
  *
- * - Keys will be interpreted as **lowercase** strings, meaning that loading uppercase characters is not supported
+ * - Keys will be interpreted as **lowercase** strings, meaning that loading
+ *   uppercase properties is not supported
  * - Keys that do not start with the provided prefix will be ignored
- * - Separator instructs the extractor on how to nest configuration objects (see below for an example)
- * - Values will be serialized as JSON if possible. Otherwise they will be loaded as plain strings
+ * - Separator instructs the extractor on how to nest configuration objects
+ *   (see below for an example)
+ * - Values will be serialized as JSON if possible. Otherwise they will be
+ *   loaded as plain strings
  *
  * ```sh
  * # prefix: PREFIX_
@@ -67,7 +70,7 @@ export class EnvExtractor<C> implements Extractor<C> {
    * @param prefix Extract only variables whose keys start with the given prefix
    * @param separator Separator used to nest objects
    */
-  constructor(prefix: string, separator = "_") {
+  constructor(prefix: string, separator: string = "_") {
     this.prefix = prefix.toLowerCase();
     this.separator = separator.toLowerCase();
   }

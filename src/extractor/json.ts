@@ -1,12 +1,12 @@
 import { FileExtractor } from "./file.ts";
 
 /**
- * An extractor that extends `FileExtractor` using JavaScript Object Notation (JSON)
+ * An extractor for JSON files
  */
 export class JsonExtractor<C> extends FileExtractor<C> {
   /**
    * Create a JsonExtractor
-   * @param filename filename used to reference the file
+   * @param filename Path that references the file
    */
   constructor(filename: string) {
     super(filename, Deno.readTextFile, JSON.parse);

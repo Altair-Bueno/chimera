@@ -1,3 +1,6 @@
+/**
+ * Extractor provides a common interface for loading configuration objects
+ */
 export interface Extractor<C> {
   /**
    * Extracts a configuration object
