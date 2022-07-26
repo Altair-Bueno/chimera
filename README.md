@@ -19,8 +19,12 @@ const config: Config = await auto({ name: "example" });
 console.log(config);
 ```
 
-See the [documentation](https://doc.deno.land/https://deno.land/x/chimera) for
-detailed usage
+## Useful resources
+
+- [Standalone examples](examples/)
+- [API Documentation](https://doc.deno.land/https://deno.land/x/chimera)
+- [Source code](https://github.com/Altair-Bueno/chimera)
+- [Deno Land](https://deno.land/x/chimera)
 
 ## Important note
 
