@@ -1,5 +1,5 @@
-name: Test chimera
-on: push
+name: Check changes
+on: [ push, pull_request ]
 jobs:
   denotest:
     runs-on: ubuntu-latest
@@ -19,3 +19,11 @@ jobs:
           key: ${{ runner.os }}-deno-${{ hashFiles('import_map.json') }}
       - name: Run tests
         run: make test
+  denocheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: "vx.x.x"
+      - name: Run format and lint checks
+        run: make check
