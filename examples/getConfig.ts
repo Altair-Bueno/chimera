@@ -26,7 +26,7 @@ const extractors = [
 // This callback will execute for each exception thrown by the extractors
 
 const errorCallback = (e: Error) =>
-  console.error(`Error loading file: ${e.message}`);
+  console.error(`Missing one config file!: ${e.message}`);
 const config = await getConfig<Config>({ extractors, errorCallback });
 
 console.log(config);
