@@ -2,7 +2,7 @@
 
 A fantastic configuration library for Deno
 
-```ts
+```ts ignore
 import { auto } from "https://deno.land/x/chimera/mod.ts";
 
 // Define your expected configuration

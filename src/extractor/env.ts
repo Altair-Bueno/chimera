@@ -57,13 +57,25 @@ function mergeChain(acc: Mergeable, chain: Chain): Mergeable {
  * - Values will be serialized as JSON if possible. Otherwise they will be
  *   loaded as plain strings
  *
+ * ## Example
+ *
+ * ```ts
+ * import { EnvExtractor } from './env.ts';
+ *
+ * const extractor = new EnvExtractor('PREFIX_');
+ * const config = await extractor.extract();
+ * console.log(config);
+ * ```
+ *
  * ```sh
- * # prefix: PREFIX_
- * # separator: _
- * PREFIX_FOO=10 # { foo: 10 }
- * PREFIX_BAZ_DEEP_FOO='{"hello": "world"}' # { baz: { deep: { foo: { hello: "world" } } } }
- * FOO=10 # -
- * prefix_biz=42 # { biz: 42 }
+ * $ PREFIX_FOO=10 deno run -A script
+ * { foo: 10 }
+ * $ PREFIX_BAZ_DEEP_FOO='{"hello": "world"}' deno run -A script
+ * { baz: { deep: { foo: { hello: "world" } } } }
+ * $ FOO=10 deno run -A script
+ * { }
+ * $ prefix_biz=42 deno run -A script
+ * { biz: 42 }
  * ```
  */
 export class EnvExtractor<C> implements Extractor<C> {
@@ -73,9 +85,10 @@ export class EnvExtractor<C> implements Extractor<C> {
 
   /**
    * Creates a new EnvExtractor
+   *
    * @param prefix Extract only variables whose keys start with the given prefix
-   * @param separator Separator used to nest objects
-   * @param environmentLoader Function that loads the raw environment into an indexable record
+   * @param separator Separator used to nest objects. Defaults to `_`
+   * @param environmentLoader Function that loads the raw environment into an indexable record. Defaults to {@linkcode Deno.env.toObject}
    */
   constructor(
     prefix: string,
@@ -88,8 +101,9 @@ export class EnvExtractor<C> implements Extractor<C> {
   }
 
   /**
-   * Creates an object using environment variables
-   * @returns extracted object
+   * Extracts a configuration object from the environment function
+   *
+   * @returns The configuration object
    */
   // deno-lint-ignore require-await
   async extract() {

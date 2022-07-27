@@ -4,7 +4,7 @@ Thanks for contributing!
 
 ## Before summiting a pull request
 
-- Run all tests. `deno task test`
+- Run all tests. `deno task test --doc`
 - Make sure the code is well formatted. `deno task fmt`
 - Solve all linter warnings. `deno task lint`
 

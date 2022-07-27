@@ -1,6 +1,12 @@
 import { Extractor } from "./index.ts";
 
-export type TextFileLoader = (filename: string) => Promise<string>;
+/**
+ * A function that loads a file into a string
+ */
+export type FileLoader = (filename: string) => Promise<string>;
+/**
+ * A function that deserializes an object
+ */
 export type Deserializer<C> = (data: string) => C;
 
 /**
@@ -8,18 +14,19 @@ export type Deserializer<C> = (data: string) => C;
  */
 export class FileExtractor<C> implements Extractor<C> {
   readonly filename: string;
-  readonly textFileLoader: TextFileLoader;
+  readonly textFileLoader: FileLoader;
   readonly deserializer: Deserializer<C>;
 
   /**
-   * Create a file extractor
+   * Creates a file extractor
+   *
    * @param filename Path that references the file
-   * @param textFileLoader A function that loads a text file into a string
+   * @param textFileLoader A function that loads a file into a string
    * @param deserializer A function that deserializes an object
    */
   constructor(
     filename: string,
-    textFileLoader: TextFileLoader,
+    textFileLoader: FileLoader,
     deserializer: Deserializer<C>,
   ) {
     this.filename = filename;
@@ -28,7 +35,8 @@ export class FileExtractor<C> implements Extractor<C> {
   }
 
   /**
-   * Deserializes `this.filename` and returns the result
+   * Deserializes {@linkcode FileExtractor.filename} and returns the result
+   *
    * @returns Deserialized object from `this.filename`
    */
   async extract() {
