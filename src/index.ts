@@ -5,6 +5,7 @@ export {
   EnvExtractor,
   FileExtractor,
   JsonExtractor,
+  toFileExtractor,
   YamlExtractor,
 } from "./extractor/index.ts";
 

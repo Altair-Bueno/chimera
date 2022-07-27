@@ -2,29 +2,10 @@ import { DefaultExtractor, Extractor } from "./extractor/index.ts";
 import {
   CommandLineExtractor,
   EnvExtractor,
-  JsonExtractor,
-  YamlExtractor,
+  toFileExtractor,
 } from "./extractor/index.ts";
 import { path } from "../deps.ts";
 import { getConfig } from "./getconfig.ts";
-
-/**
- * Creates an extractor based on the path extension
- *
- * @param path
- * @returns The extractor object, null if no extractor could be inferred
- */
-function toExtractor<C>(filePath: string): Extractor<C> | null {
-  const extension = path.extname(filePath).toLowerCase();
-
-  if (extension == ".yaml" || extension === ".yml") {
-    return new YamlExtractor(filePath);
-  } else if (extension === ".json") {
-    return new JsonExtractor(filePath);
-  } else {
-    return null;
-  }
-}
 
 /**
  * Parameters for `auto`
@@ -79,7 +60,7 @@ export async function auto<C>(autoParams: AutoParams<C>): Promise<C> {
     // Join paths
     .map((file) => path.join(dirname, file.name))
     // Create extractors
-    .map((path) => toExtractor<C>(path))
+    .map(toFileExtractor)
     // Remove null values (extractors couldn't be generated)
     .filter(Boolean) as Extractor<C>[];
   extractors.push(new EnvExtractor(`${name}_`));
