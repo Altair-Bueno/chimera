@@ -32,7 +32,7 @@ export class CommandLineExtractor<C> implements Extractor<C> {
   /**
    * Creates a new CommandLineExtractor that parses the provided argument list
    *
-   * @param args Argument list. Defaults to {@link Deno.args}
+   * @param args Argument list. Defaults to {@linkcode Deno.args}
    */
   constructor(args: string[] = Deno.args) {
     this.args = args;

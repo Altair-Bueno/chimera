@@ -2,9 +2,9 @@ import { FileExtractor } from "./file.ts";
 
 /**
  * An extractor for JSON files
- * 
+ *
  * ## Example
- * 
+ *
  * ```ts
  * import { JsonExtractor } from './json.ts';
  *

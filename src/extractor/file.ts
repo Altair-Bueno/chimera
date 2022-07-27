@@ -11,7 +11,6 @@ export type Deserializer<C> = (data: string) => C;
 
 /**
  * A base extractor for deserializing text files
- * 
  */
 export class FileExtractor<C> implements Extractor<C> {
   readonly filename: string;
@@ -28,7 +27,7 @@ export class FileExtractor<C> implements Extractor<C> {
   constructor(
     filename: string,
     textFileLoader: TextFileLoader,
-    deserializer: Deserializer<C>
+    deserializer: Deserializer<C>,
   ) {
     this.filename = filename;
     this.textFileLoader = textFileLoader;
@@ -36,7 +35,7 @@ export class FileExtractor<C> implements Extractor<C> {
   }
 
   /**
-   * Deserializes {@link this#filename} and returns the result
+   * Deserializes {@linkcode FileExtractor.filename} and returns the result
    *
    * @returns Deserialized object from `this.filename`
    */

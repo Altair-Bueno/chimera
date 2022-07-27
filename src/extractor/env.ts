@@ -88,12 +88,12 @@ export class EnvExtractor<C> implements Extractor<C> {
    *
    * @param prefix Extract only variables whose keys start with the given prefix
    * @param separator Separator used to nest objects. Defaults to `_`
-   * @param environmentLoader Function that loads the raw environment into an indexable record. Defaults to {@link Deno.env.toObject}
+   * @param environmentLoader Function that loads the raw environment into an indexable record. Defaults to {@linkcode Deno.env.toObject}
    */
   constructor(
     prefix: string,
     separator: string = "_",
-    environmentLoader: EnvironmentLoader = Deno.env.toObject
+    environmentLoader: EnvironmentLoader = Deno.env.toObject,
   ) {
     this.prefix = prefix.toLowerCase();
     this.separator = separator.toLowerCase();

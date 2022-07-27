@@ -3,8 +3,8 @@ import { FileExtractor } from "./file.ts";
 
 /**
  * An extractor for YAML files
-* ## Example
- * 
+ * ## Example
+ *
  * ```ts
  * import { YamlExtractor } from './yaml.ts';
  *
