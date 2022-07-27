@@ -7,10 +7,23 @@ import { flags } from "../../deps.ts";
  * - Commands may use dot notation for nesting properties
  * - Only flags will be parsed, single arguments will be ignored
  *
+ * ## Example
+ *
+ * ```ts
+ * import { CommandLineExtractor } from './commandline.ts';
+ *
+ * const extractor = new CommandLineExtractor();
+ * const config = await extractor.extract();
+ * console.log(config);
+ * ```
+ *
  * ```sh
- * deno run script --foo.baz=10 # { foo: { baz: 10  } }
- * deno run script -d # { d: true }
- * deno run script foo # {}
+ * $ deno run script --foo.baz=10
+ * { foo: { baz: 10  } }
+ * $ deno run script -d
+ * { d: true }
+ * $ deno run script foo
+ * {}
  * ```
  */
 export class CommandLineExtractor<C> implements Extractor<C> {
@@ -19,21 +32,21 @@ export class CommandLineExtractor<C> implements Extractor<C> {
   /**
    * Creates a new CommandLineExtractor that parses the provided argument list
    *
-   * @param args Argument list
+   * @param args Argument list. Defaults to {@link Deno.args}
    */
   constructor(args: string[] = Deno.args) {
     this.args = args;
   }
 
   /**
-   * Extracts a config object form command line arguments
+   * Extracts a config object from command line arguments
    *
    * @returns The extracted object
    */
   // deno-lint-ignore require-await
   async extract() {
     const parsed = flags.parse(this.args);
-    // Make _ (string | numnber []) | undefined so it can be removed
+    // Make _ (string | number []) | undefined so it can be removed
     const partial = parsed as Partial<typeof parsed>;
     delete partial["_"];
 

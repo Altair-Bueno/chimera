@@ -3,6 +3,15 @@ import { FileExtractor } from "./file.ts";
 
 /**
  * An extractor for YAML files
+* ## Example
+ * 
+ * ```ts
+ * import { YamlExtractor } from './yaml.ts';
+ *
+ * const extractor = new YamlExtractor('config.json');
+ * const config = await extractor.extract();
+ * console.log(config);
+ * ```
  */
 export class YamlExtractor<C> extends FileExtractor<C> {
   /**
