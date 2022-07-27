@@ -10,12 +10,12 @@ Deno.test("`auto` expected behaviour", async () => {
     "config.yaml": "loaded",
     "config.json": "loaded",
   };
-  Deno.env.set("config_env", "loaded")
+  Deno.env.set("config_env", "loaded");
   const obtained: Partial<typeof expected> = await auto({
     name: "config",
     configDir: `${RESOURCES_FOLDER}/auto`,
-    baseConfig: {"base": "loaded"}
+    baseConfig: { "base": "loaded" },
   });
 
-  asserts.assertEquals(obtained, expected)
+  asserts.assertEquals(obtained, expected);
 });

@@ -22,7 +22,7 @@ Deno.test("toExtractor generates a json extractor for .json files", () => {
 Deno.test("toExtractor is case insensitive", () => {
   const extractor = toFileExtractor("foo.Json");
 
-  asserts.assertExists(extractor)
+  asserts.assertExists(extractor);
 });
 
 Deno.test("toExtractor returns `null` for unknown file extensions", () => {
