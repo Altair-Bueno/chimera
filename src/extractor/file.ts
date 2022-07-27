@@ -3,7 +3,7 @@ import { Extractor } from "./index.ts";
 /**
  * A function that loads a file into a string
  */
-export type TextFileLoader = (filename: string) => Promise<string>;
+export type FileLoader = (filename: string) => Promise<string>;
 /**
  * A function that deserializes an object
  */
@@ -14,7 +14,7 @@ export type Deserializer<C> = (data: string) => C;
  */
 export class FileExtractor<C> implements Extractor<C> {
   readonly filename: string;
-  readonly textFileLoader: TextFileLoader;
+  readonly textFileLoader: FileLoader;
   readonly deserializer: Deserializer<C>;
 
   /**
@@ -26,7 +26,7 @@ export class FileExtractor<C> implements Extractor<C> {
    */
   constructor(
     filename: string,
-    textFileLoader: TextFileLoader,
+    textFileLoader: FileLoader,
     deserializer: Deserializer<C>,
   ) {
     this.filename = filename;
