@@ -8,6 +8,7 @@
     "fmt": "deno fmt",
     "test": "deno test --allow-read=. --allow-env",
     "lint": "deno lint",
-    "check": "deno task fmt --check && deno task lint"
+    "check": "deno task fmt --check && deno task lint",
+    "coverage": "deno task test --coverage=coverage && deno coverage coverage"
   }
 }
