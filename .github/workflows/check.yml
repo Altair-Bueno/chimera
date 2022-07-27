@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        deno-version: [ "1.23.X", "1.24.0" ]
+        deno-version: [ "1.23.X", "1.X.X" ]
     steps:
       - uses: denoland/setup-deno@v1
         with:
