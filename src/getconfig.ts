@@ -1,5 +1,5 @@
 import type { Extractor } from "./extractor/index.ts";
-import { lodash } from "../deps.ts";
+import { collections } from "../deps.ts";
 
 /**
  * Parameters for `getConfig`
@@ -37,5 +37,5 @@ export async function getConfig<C>({
     }
   });
   const resolved = await Promise.all(promises);
-  return lodash.merge(...resolved);
+  return resolved.reduce((acc, n) => collections.deepMerge(acc, n), {}) as C;
 }
