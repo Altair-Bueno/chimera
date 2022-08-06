@@ -5,4 +5,4 @@ export * as path from "https://deno.land/std@0.151.0/path/mod.ts#^";
 export * as flags from "https://deno.land/std@0.151.0/flags/mod.ts#^";
 import { deepMerge } from "https://deno.land/std@0.151.0/collections/deep_merge.ts#^";
 
-export const collections = { deepMerge }
+export const collections = { deepMerge };
