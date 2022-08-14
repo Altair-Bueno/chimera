@@ -1,4 +1,4 @@
-import { asserts } from "../deps.ts";
+import { asserts } from "../dev_deps.ts";
 import { auto } from "../mod.ts";
 
 const RESOURCES_FOLDER = "test/resources";

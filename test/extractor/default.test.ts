@@ -1,5 +1,5 @@
 import { DefaultExtractor } from "../../mod.ts";
-import { asserts } from "../../deps.ts";
+import { asserts } from "../../dev_deps.ts";
 
 Deno.test("Extract returns the same object", async () => {
   const expected = { hello: "world", this: 10 };

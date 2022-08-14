@@ -1,4 +1,4 @@
-import { asserts } from "../../deps.ts";
+import { asserts } from "../../dev_deps.ts";
 import { JsonExtractor, toFileExtractor, YamlExtractor } from "../../mod.ts";
 
 Deno.test("toExtractor generates a Yaml extractor for .yml files", () => {
