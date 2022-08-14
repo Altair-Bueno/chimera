@@ -1,4 +1,4 @@
-import { asserts } from "../../deps.ts";
+import { asserts } from "../../dev_deps.ts";
 import { CommandLineExtractor } from "../../mod.ts";
 
 Deno.test("Empty argument list creates an empty object", async () => {

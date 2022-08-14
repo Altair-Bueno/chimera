@@ -1,4 +1,4 @@
-import { asserts } from "../deps.ts";
+import { asserts } from "../dev_deps.ts";
 import { DefaultExtractor, getConfig } from "../mod.ts";
 
 Deno.test("Empty extractor list returns empty object", async () => {
