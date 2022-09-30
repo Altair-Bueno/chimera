@@ -46,7 +46,9 @@ export interface AutoParams<C> {
  * @param autoParams
  * @returns A configuration object
  */
-export async function auto<C>(autoParams: AutoParams<C>): Promise<C> {
+export async function auto<C extends Record<PropertyKey, unknown>>(
+  autoParams: AutoParams<C>
+): Promise<C> {
   const name = autoParams.name.toLowerCase();
   const dirname = autoParams.configDir ? autoParams.configDir : Deno.cwd();
 

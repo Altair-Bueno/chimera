@@ -24,7 +24,7 @@ export interface GetConfigParams<C> {
  * @param getConfigParams
  * @returns A configuration object
  */
-export async function getConfig<C>({
+export async function getConfig<C extends Record<PropertyKey, unknown>>({
   extractors,
   errorCallback,
 }: GetConfigParams<C>): Promise<C> {
