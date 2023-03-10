@@ -18,7 +18,7 @@ const CONFIG_SCHEME = z.object({
 });
 
 const config = await auto({ name: "config", configDir: "examples/" }).then(
-  (x) => CONFIG_SCHEME.parseAsync(x)
+  (x) => CONFIG_SCHEME.parseAsync(x),
 );
 
 console.log(config);
