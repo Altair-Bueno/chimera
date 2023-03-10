@@ -1,4 +1,4 @@
-import { asserts } from "../../dev_deps.ts";
+import * as asserts from "https://deno.land/std/testing/asserts.ts";
 import { JsonExtractor } from "../../mod.ts";
 
 const RESOURCES_FOLDER = "test/resources";

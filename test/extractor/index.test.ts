@@ -1,4 +1,4 @@
-import { asserts } from "../../dev_deps.ts";
+import * as asserts from "https://deno.land/std/testing/asserts.ts";
 import { JsonExtractor, toFileExtractor, YamlExtractor } from "../../mod.ts";
 
 Deno.test("toExtractor generates a Yaml extractor for .yml files", () => {
@@ -31,8 +31,11 @@ Deno.test("toExtractor returns `null` for unknown file extensions", () => {
   asserts.assertEquals(extractor, null);
 });
 
-Deno.test("toExtractor returns `null` for files without file extensions", () => {
-  const extractor = toFileExtractor("foo");
+Deno.test(
+  "toExtractor returns `null` for files without file extensions",
+  () => {
+    const extractor = toFileExtractor("foo");
 
-  asserts.assertEquals(extractor, null);
-});
+    asserts.assertEquals(extractor, null);
+  },
+);

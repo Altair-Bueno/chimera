@@ -1,5 +1,5 @@
 import { Extractor } from "./index.ts";
-import { flags } from "../../deps.ts";
+import * as flags from "https://deno.land/std/flags/mod.ts";
 
 /**
  * Extracts configuration options from command line arguments

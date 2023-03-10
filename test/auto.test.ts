@@ -1,12 +1,12 @@
-import { asserts } from "../dev_deps.ts";
+import * as asserts from "https://deno.land/std/testing/asserts.ts";
 import { auto } from "../mod.ts";
 
 const RESOURCES_FOLDER = "test/resources";
 
 Deno.test("`auto` expected behaviour", async () => {
   const expected = {
-    "env": "loaded",
-    "base": "loaded",
+    env: "loaded",
+    base: "loaded",
     "config.yaml": "loaded",
     "config.json": "loaded",
   };
@@ -14,7 +14,7 @@ Deno.test("`auto` expected behaviour", async () => {
   const obtained: Partial<typeof expected> = await auto({
     name: "config",
     configDir: `${RESOURCES_FOLDER}/auto`,
-    baseConfig: { "base": "loaded" },
+    baseConfig: { base: "loaded" },
   });
 
   asserts.assertEquals(obtained, expected);

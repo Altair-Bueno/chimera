@@ -1,5 +1,5 @@
 import type { Extractor } from "./extractor/index.ts";
-import { collections } from "../deps.ts";
+import { deepMerge } from "https://deno.land/std/collections/deep_merge.ts";
 
 /**
  * Parameters for `getConfig`
@@ -37,5 +37,5 @@ export async function getConfig<C extends Record<PropertyKey, unknown>>({
     }
   });
   const resolved = await Promise.all(promises);
-  return resolved.reduce((acc, n) => collections.deepMerge(acc, n), {}) as C;
+  return resolved.reduce((acc, n) => deepMerge(acc, n), {}) as C;
 }

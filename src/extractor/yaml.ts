@@ -1,4 +1,4 @@
-import { yaml } from "../../deps.ts";
+import * as yaml from "https://deno.land/std/encoding/yaml.ts";
 import { FileExtractor } from "./file.ts";
 
 /**

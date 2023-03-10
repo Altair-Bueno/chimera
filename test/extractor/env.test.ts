@@ -1,4 +1,4 @@
-import { asserts } from "../../dev_deps.ts";
+import * as asserts from "https://deno.land/std/testing/asserts.ts";
 import { EnvExtractor } from "../../mod.ts";
 
 Deno.test(

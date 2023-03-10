@@ -4,7 +4,7 @@ import {
   EnvExtractor,
   toFileExtractor,
 } from "./extractor/index.ts";
-import { path } from "../deps.ts";
+import * as path from "https://deno.land/std/path/mod.ts";
 import { getConfig } from "./getconfig.ts";
 
 /**

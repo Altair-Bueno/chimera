@@ -1,4 +1,4 @@
-import { path } from "../../deps.ts";
+import * as path from "https://deno.land/std/path/mod.ts";
 import { YamlExtractor } from "./yaml.ts";
 import { JsonExtractor } from "./json.ts";
 import { FileExtractor } from "./file.ts";
