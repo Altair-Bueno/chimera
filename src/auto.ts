@@ -1,4 +1,4 @@
-import { DefaultExtractor, Extractor } from "./extractor/index.ts";
+import { DefaultExtractor } from "./extractor/index.ts";
 import {
   CommandLineExtractor,
   EnvExtractor,
@@ -49,30 +49,34 @@ export interface AutoParams<C> {
 export async function auto<C extends Record<PropertyKey, unknown>>(
   autoParams: AutoParams<C>,
 ): Promise<C> {
-  const name = autoParams.name.toLowerCase();
-  const dirname = autoParams.configDir ? autoParams.configDir : Deno.cwd();
-
-  const regex = new RegExp(`${name}\\.\\w+`);
-
-  const extractors = Array.from(Deno.readDirSync(dirname))
-    // Only files
-    .filter((entry) => entry.isFile)
-    // Remove all files whose name isn't expected
-    .filter((file) => file.name.toLowerCase().match(regex))
-    // Join paths
-    .map((file) => path.join(dirname, file.name))
-    // Create extractors
-    .map(toFileExtractor)
-    // Remove null values (extractors couldn't be generated)
-    .filter(Boolean) as Extractor<C>[];
-  extractors.push(new EnvExtractor(`${name}_`));
-
+  const extractors = [];
   if (autoParams.baseConfig) {
-    extractors.unshift(new DefaultExtractor(autoParams.baseConfig));
+    extractors.push(new DefaultExtractor<C>(autoParams.baseConfig));
   }
 
-  extractors.push(new CommandLineExtractor());
+  const name = autoParams.name.toLowerCase();
+  const dirname = autoParams.configDir ? autoParams.configDir : Deno.cwd();
+  const regex = new RegExp(`${name}\\.\\w+`);
 
-  const errorCallback = autoParams.errorCallback;
+  try {
+    for await (const entry of Deno.readDir(dirname)) {
+      if (!entry.isFile || !entry.name.toLowerCase().match(regex)) {
+        continue;
+      }
+      const fileExtractor = toFileExtractor<C>(path.join(dirname, entry.name));
+      if (fileExtractor) {
+        extractors.push(fileExtractor);
+      }
+    }
+  } catch (e) {
+    autoParams.errorCallback && autoParams.errorCallback(e);
+  }
+
+  extractors.push(
+    new EnvExtractor<C>(`${name}_`),
+    new CommandLineExtractor<C>(),
+  );
+
+  const { errorCallback } = autoParams;
   return await getConfig<C>({ extractors, errorCallback });
 }

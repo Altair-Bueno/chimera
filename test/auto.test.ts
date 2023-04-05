@@ -19,3 +19,10 @@ Deno.test("`auto` expected behaviour", async () => {
 
   asserts.assertEquals(obtained, expected);
 });
+
+Deno.test("`auto` doesn't crash if directory does not exist", async () => {
+  await auto({
+    name: "test",
+    configDir: "/tmp/foo/baz/doesntexist",
+  });
+});
